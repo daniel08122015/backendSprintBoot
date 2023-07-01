@@ -31,17 +31,17 @@ public class AlumnoController {
     }
 
     @PostMapping("alumnos")
-    public ResponseEntity<AlumnoDTO> registrarAlumno(@RequestBody AlumnoCreateDTO alumnoCreateDTO){
-        return  new ResponseEntity <>( alumnoService.registrarAlumno(alumnoCreateDTO) ,HttpStatus.OK) ;
-    }
+        public ResponseEntity<AlumnoDTO> registrarAlumno(@RequestBody AlumnoCreateDTO alumnoCreateDTO){
+            return  new ResponseEntity <>( alumnoService.registrarAlumno(alumnoCreateDTO) ,HttpStatus.OK) ;
+        }
 
-    @PutMapping("alumnos")
-    public ResponseEntity<AlumnoDTO> actualizarAlumno(@RequestBody AlumnoUpdateDTO alumnoUpdateDTO){
-        return new ResponseEntity<>(alumnoService.actualizarAlumno(alumnoUpdateDTO),HttpStatus.OK);
-    }
+        @PutMapping("alumnos")
+        public ResponseEntity<AlumnoDTO> actualizarAlumno(@RequestBody AlumnoUpdateDTO alumnoUpdateDTO){
+            return new ResponseEntity<>(alumnoService.actualizarAlumno(alumnoUpdateDTO),HttpStatus.OK);
+        }
 
-    @DeleteMapping("/alumnos/{alumnoId}")
-    public ResponseEntity<AlumnoDTO> eliminarAlumno(@PathVariable("alumnoId") long alumnoId) {
-        return new ResponseEntity<>( alumnoService.eliminarAlumno(alumnoId),HttpStatus.OK);
-    }
+        @DeleteMapping("/alumnos/{alumnoId}")
+        public ResponseEntity<AlumnoDTO> eliminarAlumno(@PathVariable("alumnoId") long alumnoId) {
+            return new ResponseEntity<>( alumnoService.eliminarAlumno(alumnoId),HttpStatus.OK);
+        }
 }

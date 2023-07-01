@@ -1,15 +1,10 @@
 package com.example.reservabackmathews.service;
-
-import com.example.reservabackmathews.dtos.AlumnoDTO;
-import com.example.reservabackmathews.dtos.EmpleadoCreateDTO;
-import com.example.reservabackmathews.dtos.EmpleadoDTO;
-import com.example.reservabackmathews.dtos.EmpleadoUpdateDTO;
-import com.example.reservabackmathews.mappers.AlumnoMapper;
-import com.example.reservabackmathews.mappers.EmpleadoMapper;
-import com.example.reservabackmathews.model.Alumno;
-import com.example.reservabackmathews.model.Empleado;
-import com.example.reservabackmathews.repository.AlumnoRepository;
-import com.example.reservabackmathews.repository.EmpleadoRepository;
+import com.example.reservabackmathews.dtos.ClienteCreateDTO;
+import com.example.reservabackmathews.dtos.ClienteDTO;
+import com.example.reservabackmathews.dtos.ClienteUpdateDTO;
+import com.example.reservabackmathews.mappers.ClienteMapper;
+import com.example.reservabackmathews.model.Cliente;
+import com.example.reservabackmathews.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,55 +12,56 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ClienteServiceImpl implements EmpleadoService{
+public class ClienteServiceImpl implements ClienteService{
 
     @Autowired
-    private EmpleadoRepository empleadoRepository;
+    private ClienteRepository clienteRepository;
+
     @Override
-    public List<EmpleadoDTO> listarEmpleados() {
-        return EmpleadoMapper.instancia.listaEmpleadoAListaEmpleadoDTO( empleadoRepository.findAll());
+    public List<ClienteDTO> listarClientes() {
+        return ClienteMapper.instancia.listaClienteAListaClienteDTO( clienteRepository.findAll());
     }
 
     @Override
-    public EmpleadoDTO obtenerEmpleadoPorID(long id) {
-        Optional<Empleado> empleado= empleadoRepository.findById(id);
-        EmpleadoDTO empleadoDTO ;
-        if(empleado.isPresent()){
-            empleadoDTO = EmpleadoMapper.instancia.empleadoAEmpleadoDTO(empleado.get());
+    public ClienteDTO obtenerClientePorID(long id) {
+        Optional<Cliente> cliente= clienteRepository.findById(id);
+        ClienteDTO clienteDTO ;
+        if(cliente.isPresent()){
+            clienteDTO = ClienteMapper.instancia.clienteAClienteDTO(cliente.get());
         }else {
-            empleadoDTO=null;
+            clienteDTO=null;
         }
-        return  empleadoDTO;
+        return  clienteDTO;
     }
 
     @Override
-    public EmpleadoDTO registrarEmpleado(EmpleadoCreateDTO empleadoCreateDTO) {
-        Empleado empleado=EmpleadoMapper.instancia.empleadoCreatedDTOAEmpleado(empleadoCreateDTO);
-        Empleado respuestaEntity = empleadoRepository.save(empleado);
-        EmpleadoDTO respuestaDTO= EmpleadoMapper.instancia.empleadoAEmpleadoDTO(respuestaEntity);
+    public ClienteDTO registrarCliente(ClienteCreateDTO clienteCreateDTO) {
+        Cliente cliente=ClienteMapper.instancia.clienteCreatedDTOACliente(clienteCreateDTO);
+        Cliente respuestaEntity = clienteRepository.save(cliente);
+        ClienteDTO respuestaDTO= ClienteMapper.instancia.clienteAClienteDTO(respuestaEntity);
         return respuestaDTO;
     }
 
     @Override
-    public EmpleadoDTO actualizarEmpleado(EmpleadoUpdateDTO empleadoUpdateDTO) {
-        Empleado empleado=EmpleadoMapper.instancia.empleadoUpdateDTOAEmpleado(empleadoUpdateDTO);
-        Empleado respuestaEntity = empleadoRepository.save(empleado);
-        EmpleadoDTO respuestaDTO= EmpleadoMapper.instancia.empleadoAEmpleadoDTO(respuestaEntity);
+    public ClienteDTO actualizarCliente(ClienteUpdateDTO clienteUpdateDTO) {
+        Cliente cliente=ClienteMapper.instancia.clienteUpdateDTOACliente(clienteUpdateDTO);
+        Cliente respuestaEntity = clienteRepository.save(cliente);
+        ClienteDTO respuestaDTO= ClienteMapper.instancia.clienteAClienteDTO(respuestaEntity);
         return respuestaDTO;
     }
 
     @Override
-    public EmpleadoDTO eliminarAEmpleado(long id) {
-        Optional<Empleado> empleadoOptional = empleadoRepository.findById(id);
-        EmpleadoDTO empleadoDTO = new EmpleadoDTO();
+    public ClienteDTO eliminarCliente(long id) {
+        Optional<Cliente> clienteOptional = clienteRepository.findById(id);
+        ClienteDTO clienteDTO = new ClienteDTO();
         String resultado ;
-        if(empleadoOptional.isPresent()){
-            empleadoDTO=EmpleadoMapper.instancia.empleadoAEmpleadoDTO(empleadoOptional.get());
-            empleadoRepository.delete(empleadoOptional.get());
-            return empleadoDTO;
+        if(clienteOptional.isPresent()){
+            clienteDTO=ClienteMapper.instancia.clienteAClienteDTO(clienteOptional.get());
+            clienteRepository.delete(clienteOptional.get());
+            return clienteDTO;
         }else {
-            resultado="No se pudo realizar la eliminación del empleado";
+            resultado="No se pudo realizar la eliminación del cliente";
         }
-        return empleadoDTO;
+        return clienteDTO;
     }
 }
